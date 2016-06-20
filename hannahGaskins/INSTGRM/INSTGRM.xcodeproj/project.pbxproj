@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE32A88A1D188F2D003FDCFD /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32A8891D188F2D003FDCFD /* Setup.swift */; };
 		EE9255401D1885FF00A8E5CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE92553F1D1885FF00A8E5CE /* AppDelegate.swift */; };
 		EE9255421D1885FF00A8E5CE /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9255411D1885FF00A8E5CE /* ImageViewController.swift */; };
 		EE9255451D1885FF00A8E5CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9255431D1885FF00A8E5CE /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE32A8891D188F2D003FDCFD /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 		EE92553C1D1885FF00A8E5CE /* INSTGRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INSTGRM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE92553F1D1885FF00A8E5CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE9255411D1885FF00A8E5CE /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				EE92553F1D1885FF00A8E5CE /* AppDelegate.swift */,
 				EE92554B1D1885FF00A8E5CE /* Info.plist */,
+				EE32A8891D188F2D003FDCFD /* Setup.swift */,
 			);
 			name = AppGlobal;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE9255421D1885FF00A8E5CE /* ImageViewController.swift in Sources */,
+				EE32A88A1D188F2D003FDCFD /* Setup.swift in Sources */,
 				EE9255401D1885FF00A8E5CE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +318,7 @@
 				EE9255501D1885FF00A8E5CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
