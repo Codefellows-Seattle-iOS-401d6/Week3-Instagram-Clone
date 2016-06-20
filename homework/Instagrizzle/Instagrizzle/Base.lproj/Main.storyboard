@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FJr-6L-6B4">
-                                <rect key="frame" x="20" y="72" width="565" height="476"/>
+                                <rect key="frame" x="18" y="72" width="565" height="476"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -27,7 +27,7 @@
                             <constraint firstItem="FJr-6L-6B4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" constant="25" id="Gt5-bF-Qba"/>
                             <constraint firstItem="FJr-6L-6B4" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="10" id="OWM-kb-UHp"/>
                             <constraint firstItem="FJr-6L-6B4" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.76" constant="20" id="dz5-5Z-3Ze"/>
-                            <constraint firstItem="FJr-6L-6B4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="2.5" id="qW5-Dx-Zg8"/>
+                            <constraint firstItem="FJr-6L-6B4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qW5-Dx-Zg8"/>
                         </constraints>
                     </view>
                     <toolbarItems>
