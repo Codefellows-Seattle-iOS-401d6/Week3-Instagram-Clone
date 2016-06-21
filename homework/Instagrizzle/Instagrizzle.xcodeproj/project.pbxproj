@@ -13,6 +13,7 @@
 		14F5FBD01D18805C0053DF59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14F5FBCF1D18805C0053DF59 /* Assets.xcassets */; };
 		14F5FBD31D18805C0053DF59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14F5FBD11D18805C0053DF59 /* LaunchScreen.storyboard */; };
 		14F5FBDE1D1882820053DF59 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F5FBDD1D1882820053DF59 /* Setup.swift */; };
+		14F5FC051D189AB70053DF59 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F5FC041D189AB70053DF59 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		14F5FBD21D18805C0053DF59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14F5FBD41D18805C0053DF59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14F5FBDD1D1882820053DF59 /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
+		14F5FC031D189A9F0053DF59 /* Instagrizzle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Instagrizzle.entitlements; sourceTree = "<group>"; };
+		14F5FC041D189AB70053DF59 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14F5FC051D189AB70053DF59 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +44,7 @@
 		14F5FBBC1D18805B0053DF59 = {
 			isa = PBXGroup;
 			children = (
+				14F5FC041D189AB70053DF59 /* CloudKit.framework */,
 				14F5FBC71D18805B0053DF59 /* Instagrizzle */,
 				14F5FBC61D18805B0053DF59 /* Products */,
 			);
@@ -56,6 +61,7 @@
 		14F5FBC71D18805B0053DF59 /* Instagrizzle */ = {
 			isa = PBXGroup;
 			children = (
+				14F5FC031D189A9F0053DF59 /* Instagrizzle.entitlements */,
 				14F5FBDA1D18806C0053DF59 /* App Global */,
 				14F5FBDB1D18807A0053DF59 /* Controller */,
 				14F5FBDC1D1880800053DF59 /* View */,
@@ -123,6 +129,12 @@
 				TargetAttributes = {
 					14F5FBC41D18805B0053DF59 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = S3VQ78PEYR;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -279,11 +291,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Instagrizzle/Instagrizzle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Instagrizzle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Sung-Kim.Instagrizzle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -291,11 +306,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Instagrizzle/Instagrizzle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Instagrizzle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Sung-Kim.Instagrizzle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
