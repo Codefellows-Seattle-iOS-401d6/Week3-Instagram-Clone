@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import CloudKit
 
 class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     @IBOutlet weak var imageView: UIImageView!
 
     lazy var imagePicker = UIImagePickerController()
+    let container = CKContainer.defaultContainer()
+    var publicDatabase: CKDatabase?
+    var currentRecord: CKRecord?
+    var photoURL: NSURL?
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.setup()
         self.setupAppearance()
+        publicDatabase = container.publicCloudDatabase
     }
 
     override func didReceiveMemoryWarning()
@@ -81,7 +87,38 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     
     }
     
-    //handle image selection
+    
+    @IBAction func editButtonSelected(sender: AnyObject)
+    {
+        
+        guard let image = self.imageView.image else { return } //cant edit if no image
+        
+//        let actionSheet = UIAlertController(title: "filters", message: "Please select filter")
+        
+        Filters.bw(image) { (theImage) in
+            self.imageView.image = theImage
+        }
+    }
+    
+    
+    
+    @IBAction func saveButtonSelected(sender: AnyObject)
+    {
+        
+        guard let image = self.imageView.image else { return }
+        
+        API.shared.write(Post(image: image)) { (success) in
+            if success {
+                
+                print("Success")
+            }
+    }
+    
+    
+    }
+    
+    
+    
     
     
     //MARK: UIImagePickerControllerDelegate
@@ -89,33 +126,14 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.imageView.image = image
         self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
 

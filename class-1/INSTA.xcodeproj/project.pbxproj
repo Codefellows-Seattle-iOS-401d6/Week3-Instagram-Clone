@@ -13,6 +13,12 @@
 		D912524D1D186A1C0081F169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D912524C1D186A1C0081F169 /* Assets.xcassets */; };
 		D91252501D186A1C0081F169 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D912524E1D186A1C0081F169 /* LaunchScreen.storyboard */; };
 		D912525D1D1874060081F169 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912525C1D1874060081F169 /* Setup.swift */; };
+		D9C28B871D189A790015FD84 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C28B861D189A790015FD84 /* CloudKit.framework */; };
+		D9C28BA91D19B73A0015FD84 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C28BA81D19B73A0015FD84 /* Post.swift */; };
+		D9C28BAB1D19B7BC0015FD84 /* Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C28BAA1D19B7BC0015FD84 /* Additions.swift */; };
+		D9C28BAE1D19BB100015FD84 /* ModelAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C28BAD1D19BB100015FD84 /* ModelAdditions.swift */; };
+		D9C28BB01D19C0CD0015FD84 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C28BAF1D19C0CD0015FD84 /* Filters.swift */; };
+		D9C28BB21D19C7B20015FD84 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C28BB11D19C7B20015FD84 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,13 @@
 		D912524F1D186A1C0081F169 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D91252511D186A1C0081F169 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D912525C1D1874060081F169 /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
+		D9C28B851D189A030015FD84 /* INSTA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = INSTA.entitlements; sourceTree = "<group>"; };
+		D9C28B861D189A790015FD84 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		D9C28BA81D19B73A0015FD84 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		D9C28BAA1D19B7BC0015FD84 /* Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Additions.swift; sourceTree = "<group>"; };
+		D9C28BAD1D19BB100015FD84 /* ModelAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAdditions.swift; sourceTree = "<group>"; };
+		D9C28BAF1D19C0CD0015FD84 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		D9C28BB11D19C7B20015FD84 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9C28B871D189A790015FD84 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +54,7 @@
 		D91252391D186A1C0081F169 = {
 			isa = PBXGroup;
 			children = (
+				D9C28B861D189A790015FD84 /* CloudKit.framework */,
 				D91252441D186A1C0081F169 /* INSTA */,
 				D91252431D186A1C0081F169 /* Products */,
 			);
@@ -56,9 +71,11 @@
 		D91252441D186A1C0081F169 /* INSTA */ = {
 			isa = PBXGroup;
 			children = (
+				D9C28B851D189A030015FD84 /* INSTA.entitlements */,
 				D91252591D186B7B0081F169 /* App Global */,
 				D91252581D186A840081F169 /* Controller */,
 				D91252571D186A600081F169 /* View */,
+				D9C28BAC1D19B7CA0015FD84 /* Models */,
 			);
 			path = INSTA;
 			sourceTree = "<group>";
@@ -84,11 +101,23 @@
 		D91252591D186B7B0081F169 /* App Global */ = {
 			isa = PBXGroup;
 			children = (
+				D9C28BB11D19C7B20015FD84 /* API.swift */,
+				D9C28BAA1D19B7BC0015FD84 /* Additions.swift */,
+				D9C28BAD1D19BB100015FD84 /* ModelAdditions.swift */,
 				D91252451D186A1C0081F169 /* AppDelegate.swift */,
 				D91252511D186A1C0081F169 /* Info.plist */,
 				D912525C1D1874060081F169 /* Setup.swift */,
 			);
 			name = "App Global";
+			sourceTree = "<group>";
+		};
+		D9C28BAC1D19B7CA0015FD84 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D9C28BAF1D19C0CD0015FD84 /* Filters.swift */,
+				D9C28BA81D19B73A0015FD84 /* Post.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,7 +152,12 @@
 				TargetAttributes = {
 					D91252411D186A1C0081F169 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 7S6FTEVWMT;
+						DevelopmentTeam = JB9S5C7GAZ;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -163,9 +197,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9C28BB01D19C0CD0015FD84 /* Filters.swift in Sources */,
 				D91252481D186A1C0081F169 /* ImageViewController.swift in Sources */,
+				D9C28BAE1D19BB100015FD84 /* ModelAdditions.swift in Sources */,
+				D9C28BAB1D19B7BC0015FD84 /* Additions.swift in Sources */,
 				D91252461D186A1C0081F169 /* AppDelegate.swift in Sources */,
 				D912525D1D1874060081F169 /* Setup.swift in Sources */,
+				D9C28BB21D19C7B20015FD84 /* API.swift in Sources */,
+				D9C28BA91D19B73A0015FD84 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,11 +319,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = INSTA/INSTA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = INSTA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.JessMalesh.INSTA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JessMalesh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -294,11 +334,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = INSTA/INSTA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = INSTA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.JessMalesh.INSTA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JessMalesh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -323,6 +364,7 @@
 				D91252561D186A1C0081F169 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
