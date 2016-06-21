@@ -70,7 +70,6 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.imageView.image = image
-        CKRecord.
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
