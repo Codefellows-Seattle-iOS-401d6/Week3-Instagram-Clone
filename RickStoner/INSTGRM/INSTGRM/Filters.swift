@@ -12,11 +12,11 @@ typealias FiltersCompletions = (theImage : UIImage) -> ()
 
 class Filters {
     
-    static var original = UIImage()
+    static var original: UIImage?
     
     private class func filter(name: String, image: UIImage, completion: FiltersCompletions) {
         
-        NSOperationQueue().addOperationWithBlock { 
+        NSOperationQueue().addOperationWithBlock {
             
             guard let filter = CIFilter(name: name) else {fatalError("Check filter name")}
             filter.setValue(CIImage(image: image), forKey: kCIInputImageKey)
@@ -45,7 +45,7 @@ class Filters {
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
     }
     class func colorInvert(image: UIImage, completion: FiltersCompletions) {
-        self.filter("CIPColorInvert", image: image, completion: completion)
+        self.filter("CIColorInvert", image: image, completion: completion)
     }
     class func motionBlur(image: UIImage, completion: FiltersCompletions) {
         self.filter("CIMotionBlur", image: image, completion: completion)

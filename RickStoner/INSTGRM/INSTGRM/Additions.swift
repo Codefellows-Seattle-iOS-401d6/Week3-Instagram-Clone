@@ -29,7 +29,7 @@ extension NSURL {
         
         guard let documentDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first else { fatalError("Error getting document directory")}
         
-        return documentDirectory
+        return documentDirectory.URLByAppendingPathComponent("image")
             
     }
 }

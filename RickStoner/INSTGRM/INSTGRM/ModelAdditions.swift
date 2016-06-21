@@ -16,7 +16,7 @@ enum PostError : ErrorType {
 
 extension Post {
     
-    class func recordWith(post: Post) throws -> CKRecord {
+    class func recordWith(post: Post) throws -> CKRecord? {
         
         let imageURL = NSURL.imageURL()
         guard let data = UIImageJPEGRepresentation(post.image, 0.7) else { throw PostError.WritingImage }
