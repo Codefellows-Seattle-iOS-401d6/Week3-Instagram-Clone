@@ -117,7 +117,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
         API.shared.write(Post(image: image)) { (success) in
             if success {
-                print("Woohoo!")
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             }
         }
     }
