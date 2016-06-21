@@ -36,6 +36,32 @@ class Filters {
         }
     }
     
+//    private class func filterWithParams ( name: String, inputParams: [String : AnyObject]?, image: UIImage, completion: FiltersCompletion) {
+//        NSOperationQueue().addOperationWithBlock {
+//            
+//            if inputParams != nil {
+//                guard let filter = CIFilter(name: name, withInputParameters: inputParams)
+//                else { fatalError("Spelling error in filter name") }
+//
+//            }
+//            
+//            
+//            let options = [kCIContextWorkingColorSpace : NSNull()]
+//            
+//            let eAGLContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+//            
+//            let gPUContext = CIContext(EAGLContext: eAGLContext, options: options)
+//            
+//            guard let outputImage = filter.outputImage else { fatalError("Error creating output image") }
+//            
+//            let cGImage = gPUContext.createCGImage(outputImage, fromRect: outputImage.extent)
+//            
+//            NSOperationQueue.mainQueue().addOperationWithBlock({
+//                completion( image: UIImage(CGImage: cGImage))
+//            })
+//        }
+//    }
+    
     class func vintage(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectTransfer", image: image, completion: completion)
     }
@@ -46,6 +72,10 @@ class Filters {
     
     class func chrome(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
+    }
+    
+    class func torus(image: UIImage, completion: FiltersCompletion) {
+        self.filter("CITorusLensDistortion", image: image, completion: completion)
     }
     
     class func revert(image: UIImage, completion: FiltersCompletion) {

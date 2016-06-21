@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Foundation
 import CloudKit
 
 
@@ -82,6 +81,11 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     @IBAction func saveButtonSelected(sender: AnyObject) {
         print("save button selected")
             
+
+        
+        let actionSheet = UIAlertController(title: "Save Image", message: "Please choose where to save your photo", preferredStyle: .ActionSheet)
+        
+        let cloudAction = UIAlertAction(title: "Cloud", style: .Default) { (action) in
             guard let image = self.imageView.image else { return }
             
             API.shared.write(Post(image: image)) { (success) in
@@ -89,6 +93,20 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
                     print("Yay")
                 }
             }
+        }
+        
+        let libraryAction = UIAlertAction(title: "Library", style: .Default) { (action) in
+            //
+            guard let image = self.imageView.image else { return }
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        actionSheet.addAction(cloudAction)
+        actionSheet.addAction(libraryAction)
+        actionSheet.addAction(cancelAction)
+         self.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     @IBAction func editButtonSelected(sender: AnyObject) {
@@ -104,7 +122,8 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
             guard let image = self.imageView.image else { return }
             Filters.chrome(image, completion: { (image) in
                 self.imageView.image = image
-            })        }
+            })
+        }
         
         let vintageAction = UIAlertAction(title: "Sepia", style: .Default) { (action) in
             guard let image = self.imageView.image else { return }
@@ -112,6 +131,14 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
                 self.imageView.image = image
             })
         }
+        
+        let torusAction = UIAlertAction(title: "Torus", style: .Default) { (action) in
+            guard let image = self.imageView.image else { return }
+            Filters.torus(image, completion: { (image) in
+                self.imageView.image = image
+            })
+        }
+        
         
         let revertAction = UIAlertAction(title: "Revert", style: .Default) { (action) in
             guard let image = self.imageView.image else { return }
@@ -126,6 +153,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         actionSheet.addAction(bwAction)
         actionSheet.addAction(chromeAction)
         actionSheet.addAction(vintageAction)
+
         actionSheet.addAction(revertAction)
         actionSheet.addAction(cancelAction)
         
