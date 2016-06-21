@@ -16,6 +16,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
 
     @IBOutlet weak var imageView: UIImageView!
     
+    
     lazy var imagePicker = UIImagePickerController()
     
   
@@ -23,7 +24,6 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         super.viewDidLoad()
         self.setup()
         self.setupAppearance()
-//        imagePicker.delegate = self
 
     }
 
@@ -31,7 +31,9 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
+
     
     func setup()
     {
@@ -60,7 +62,6 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
             self.presentImagePicker(.PhotoLibrary)
         }
         
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
         actionSheet.addAction(cameraAction)
@@ -78,16 +79,72 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
             
         }
     }
+    @IBAction func saveButtonSelected(sender: AnyObject) {
+        print("save button selected")
+            
+            guard let image = self.imageView.image else { return }
+            
+            API.shared.write(Post(image: image)) { (success) in
+                if success {
+                    print("Yay")
+                }
+            }
+    }
+    
+    @IBAction func editButtonSelected(sender: AnyObject) {
+        let actionSheet = UIAlertController(title: "Filter", message: "Please choose a filter for your photos", preferredStyle: .ActionSheet)
+        
+        let bwAction = UIAlertAction(title: "Black & White", style: .Default) { (action) in
+            guard let image = self.imageView.image else { return }
+            Filters.bw(image, completion: { (image) in
+                self.imageView.image = image
+            })        }
+        
+        let chromeAction = UIAlertAction(title: "Chrome", style: .Default ) { (action) in
+            guard let image = self.imageView.image else { return }
+            Filters.chrome(image, completion: { (image) in
+                self.imageView.image = image
+            })        }
+        
+        let vintageAction = UIAlertAction(title: "Sepia", style: .Default) { (action) in
+            guard let image = self.imageView.image else { return }
+            Filters.vintage(image, completion: { (image) in
+                self.imageView.image = image
+            })
+        }
+        
+        let revertAction = UIAlertAction(title: "Revert", style: .Default) { (action) in
+            guard let image = self.imageView.image else { return }
+            Filters.revert(image, completion: { (image) in
+                self.imageView.image = image
+            })
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        
+        actionSheet.addAction(bwAction)
+        actionSheet.addAction(chromeAction)
+        actionSheet.addAction(vintageAction)
+        actionSheet.addAction(revertAction)
+        actionSheet.addAction(cancelAction)
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
     
     // MARK: UIImagePickerControllerDelegate
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-  
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, info: [String : AnyObject]?) {
+
+    
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
+    {
         self.imageView.image = image
-        
+        Filters.original(image)
 
         self.dismissViewControllerAnimated(true, completion: nil)
     }
