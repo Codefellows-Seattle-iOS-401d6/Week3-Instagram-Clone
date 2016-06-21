@@ -44,5 +44,11 @@ class Filters {
     class func chrome(image: UIImage, completion: FiltersCompletions) {
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
     }
+    class func colorInvert(image: UIImage, completion: FiltersCompletions) {
+        self.filter("CIPColorInvert", image: image, completion: completion)
+    }
+    class func motionBlur(image: UIImage, completion: FiltersCompletions) {
+        self.filter("CIMotionBlur", image: image, completion: completion)
+    }
     
 }
