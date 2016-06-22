@@ -32,7 +32,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     func presentImagePicker(sourceType: UIImagePickerControllerSourceType) {
         // this is interested in the events. sets deleate, sets source type, presents image picker
         // view controller needs to conform to UIImagePickerControllerDelegate and UINavigationControllerDelegate protocols
-        self.imagePicker.delegate = self
+        self.imagePicker.delegate = self // saying this is the delegate
         self.imagePicker.sourceType = sourceType
         self.presentViewController(self.imagePicker, animated: true, completion: nil)
     }
@@ -53,6 +53,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
         actionSheet.addAction(cameraAction)
         actionSheet.addAction(photoAction)
         actionSheet.addAction(cancelAction)
@@ -76,6 +77,97 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         }
     }
     
+    
+    
+    @IBAction func editButtonSelected(sender: AnyObject) {
+        
+        guard let image = self.imageView.image else { return }
+        
+        
+        
+        // action sheet presenting filters options
+        
+        let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter.", preferredStyle: .ActionSheet)
+        
+        let bw = UIAlertAction(title: "Black & White", style: .Default) { (action) in
+            Filters.bw(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let vintage = UIAlertAction(title: "Vintage", style: .Default) { (action) in
+            Filters.vintage(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let chrome = UIAlertAction(title: "Chrome", style: .Default) { (action) in
+            Filters.chrome(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let poster = UIAlertAction(title: "Posterize", style: .Default) { (actions) in
+            Filters.poster(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let colorNoir = UIAlertAction(title: "Color Noir", style: .Default) { (actions) in
+            Filters.colorNoir(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let resetAction = UIAlertAction(title: "Reset", style: .Default) { (action) in
+            self.imageView.image = Filters.original
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        
+        
+        actionSheet.addAction(bw)
+        actionSheet.addAction(vintage)
+        actionSheet.addAction(chrome)
+        actionSheet.addAction(poster)
+        actionSheet.addAction(colorNoir)
+        actionSheet.addAction(resetAction)
+        actionSheet.addAction(cancelAction)
+    
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
+        if error == nil {
+            let ac = UIAlertController(title: "saved", message: "Your altered image has been saved to your Photos", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+            self.presentViewController(ac, animated: true, completion: nil)
+        } else {
+            let ac = UIAlertController(title: "Save error", message: error?.localizedDescription, preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "Error saving", style: .Default, handler: nil))
+            self.presentViewController(ac, animated: true, completion: nil)
+            
+        }
+    }
+    
+    @IBAction func saveButtonSelected(sender: AnyObject) {
+        
+        
+        guard let image = self.imageView.image else { return }
+        
+        API.shared.write(Post(image: image)) { (success) in
+            
+            if success {
+                
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image), nil)
+                print("yassqween")
+            }
+        }
+    }
+    
+    
     // now handle image selection - implementing two delegates on imagePicker
     
     // MARK: UIImagePickerControllerDelegate
@@ -86,7 +178,9 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.imageView.image = image // passed in as param of delegate function
+        Filters.original = image // image reset to original non filtered pix
         self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
 }

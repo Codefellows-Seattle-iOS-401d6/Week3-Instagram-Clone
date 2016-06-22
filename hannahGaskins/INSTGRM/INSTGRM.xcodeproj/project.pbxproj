@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE1D9F111D19DBF1006C39C9 /* post.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D9F101D19DBF1006C39C9 /* post.swift */; };
+		EE1D9F131D19DC4F006C39C9 /* Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D9F121D19DC4F006C39C9 /* Additions.swift */; };
+		EE1D9F151D19DDCD006C39C9 /* ModelAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D9F141D19DDCD006C39C9 /* ModelAdditions.swift */; };
+		EE1D9F171D19DEA0006C39C9 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D9F161D19DEA0006C39C9 /* Filters.swift */; };
+		EE1D9F191D19E520006C39C9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D9F181D19E520006C39C9 /* API.swift */; };
+		EE1D9F1B1D19F804006C39C9 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1D9F1A1D19F804006C39C9 /* CloudKit.framework */; };
 		EE32A88A1D188F2D003FDCFD /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE32A8891D188F2D003FDCFD /* Setup.swift */; };
 		EE9255401D1885FF00A8E5CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE92553F1D1885FF00A8E5CE /* AppDelegate.swift */; };
 		EE9255421D1885FF00A8E5CE /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9255411D1885FF00A8E5CE /* ImageViewController.swift */; };
@@ -16,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE1D9F0C1D19DA4A006C39C9 /* INSTGRM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = INSTGRM.entitlements; sourceTree = "<group>"; };
+		EE1D9F101D19DBF1006C39C9 /* post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = post.swift; sourceTree = "<group>"; };
+		EE1D9F121D19DC4F006C39C9 /* Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Additions.swift; sourceTree = "<group>"; };
+		EE1D9F141D19DDCD006C39C9 /* ModelAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAdditions.swift; sourceTree = "<group>"; };
+		EE1D9F161D19DEA0006C39C9 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		EE1D9F181D19E520006C39C9 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		EE1D9F1A1D19F804006C39C9 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		EE32A8891D188F2D003FDCFD /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 		EE92553C1D1885FF00A8E5CE /* INSTGRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INSTGRM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE92553F1D1885FF00A8E5CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -31,15 +44,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE1D9F1B1D19F804006C39C9 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE1D9F0F1D19DBD8006C39C9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE1D9F101D19DBF1006C39C9 /* post.swift */,
+				EE1D9F161D19DEA0006C39C9 /* Filters.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		EE9255331D1885FF00A8E5CE = {
 			isa = PBXGroup;
 			children = (
+				EE1D9F1A1D19F804006C39C9 /* CloudKit.framework */,
 				EE92553E1D1885FF00A8E5CE /* INSTGRM */,
 				EE92553D1D1885FF00A8E5CE /* Products */,
 			);
@@ -56,8 +80,10 @@
 		EE92553E1D1885FF00A8E5CE /* INSTGRM */ = {
 			isa = PBXGroup;
 			children = (
+				EE1D9F0C1D19DA4A006C39C9 /* INSTGRM.entitlements */,
 				EE9255521D18867C00A8E5CE /* AppGlobal */,
 				EE9255541D18868B00A8E5CE /* Controller */,
+				EE1D9F0F1D19DBD8006C39C9 /* Model */,
 				EE9255511D18867800A8E5CE /* View */,
 			);
 			path = INSTGRM;
@@ -69,7 +95,6 @@
 				EE9255461D1885FF00A8E5CE /* Assets.xcassets */,
 				EE9255481D1885FF00A8E5CE /* LaunchScreen.storyboard */,
 				EE9255431D1885FF00A8E5CE /* Main.storyboard */,
-				EE9255411D1885FF00A8E5CE /* ImageViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -77,8 +102,11 @@
 		EE9255521D18867C00A8E5CE /* AppGlobal */ = {
 			isa = PBXGroup;
 			children = (
+				EE1D9F121D19DC4F006C39C9 /* Additions.swift */,
+				EE1D9F181D19E520006C39C9 /* API.swift */,
 				EE92553F1D1885FF00A8E5CE /* AppDelegate.swift */,
 				EE92554B1D1885FF00A8E5CE /* Info.plist */,
+				EE1D9F141D19DDCD006C39C9 /* ModelAdditions.swift */,
 				EE32A8891D188F2D003FDCFD /* Setup.swift */,
 			);
 			name = AppGlobal;
@@ -87,6 +115,7 @@
 		EE9255541D18868B00A8E5CE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EE9255411D1885FF00A8E5CE /* ImageViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -123,6 +152,12 @@
 				TargetAttributes = {
 					EE92553B1D1885FF00A8E5CE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 6AQ4PTS4W4;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -162,9 +197,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE1D9F171D19DEA0006C39C9 /* Filters.swift in Sources */,
 				EE9255421D1885FF00A8E5CE /* ImageViewController.swift in Sources */,
+				EE1D9F151D19DDCD006C39C9 /* ModelAdditions.swift in Sources */,
+				EE1D9F131D19DC4F006C39C9 /* Additions.swift in Sources */,
 				EE32A88A1D188F2D003FDCFD /* Setup.swift in Sources */,
 				EE9255401D1885FF00A8E5CE /* AppDelegate.swift in Sources */,
+				EE1D9F191D19E520006C39C9 /* API.swift in Sources */,
+				EE1D9F111D19DBF1006C39C9 /* post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +319,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = INSTGRM/INSTGRM.entitlements;
 				INFOPLIST_FILE = INSTGRM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -291,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = INSTGRM/INSTGRM.entitlements;
 				INFOPLIST_FILE = INSTGRM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
