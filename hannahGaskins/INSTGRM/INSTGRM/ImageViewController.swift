@@ -18,6 +18,10 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // testing get function - check for case on GET/Get/get
+        API.shared.GET { (posts) in
+            print(posts)
+        }
     }
     
     func setupAppearance() {
@@ -90,31 +94,31 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter.", preferredStyle: .ActionSheet)
         
         let bw = UIAlertAction(title: "Black & White", style: .Default) { (action) in
-            Filters.bw(image) { (theImage) in
+            Filters.shared.bw(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let vintage = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-            Filters.vintage(image) { (theImage) in
+            Filters.shared.vintage(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let chrome = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-            Filters.chrome(image) { (theImage) in
+            Filters.shared.chrome(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let poster = UIAlertAction(title: "Posterize", style: .Default) { (actions) in
-            Filters.poster(image) { (theImage) in
+            Filters.shared.poster(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let colorNoir = UIAlertAction(title: "Color Noir", style: .Default) { (actions) in
-            Filters.colorNoir(image) { (theImage) in
+            Filters.shared.colorNoir(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
@@ -153,16 +157,19 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     }
     
     @IBAction func saveButtonSelected(sender: AnyObject) {
+        print("🍋")
         
-        
+        // this image is saying i want my image with the filter on it
         guard let image = self.imageView.image else { return }
         
         API.shared.write(Post(image: image)) { (success) in
             
             if success {
-                
+                print("🍎")
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image), nil)
                 print("yassqween")
+            } else {
+                print("Nooooooooo!")
             }
         }
     }
