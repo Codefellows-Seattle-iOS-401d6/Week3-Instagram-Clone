@@ -19,6 +19,9 @@
 		048B27611D19D56400103E75 /* ModelAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B27601D19D56400103E75 /* ModelAdditions.swift */; };
 		048B27631D19D7CA00103E75 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B27621D19D7CA00103E75 /* Filters.swift */; };
 		048B27651D19DD3A00103E75 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B27641D19DD3A00103E75 /* API.swift */; };
+		048B27671D1B304000103E75 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B27661D1B304000103E75 /* GalleryViewController.swift */; };
+		048B27691D1B354700103E75 /* GalleryCustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B27681D1B354700103E75 /* GalleryCustomFlowLayout.swift */; };
+		048B276B1D1B37DC00103E75 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B276A1D1B37DC00103E75 /* ImageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,9 @@
 		048B27601D19D56400103E75 /* ModelAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAdditions.swift; sourceTree = "<group>"; };
 		048B27621D19D7CA00103E75 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		048B27641D19DD3A00103E75 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		048B27661D1B304000103E75 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		048B27681D1B354700103E75 /* GalleryCustomFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCustomFlowLayout.swift; sourceTree = "<group>"; };
+		048B276A1D1B37DC00103E75 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,7 @@
 		048B27541D1880BB00103E75 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				048B27661D1B304000103E75 /* GalleryViewController.swift */,
 				048B27431D1880A100103E75 /* ImageViewController.swift */,
 			);
 			name = Controller;
@@ -103,6 +110,8 @@
 		048B27551D1880C500103E75 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				048B27681D1B354700103E75 /* GalleryCustomFlowLayout.swift */,
+				048B276A1D1B37DC00103E75 /* ImageCollectionViewCell.swift */,
 				048B27451D1880A100103E75 /* Main.storyboard */,
 				048B27481D1880A100103E75 /* Assets.xcassets */,
 				048B274A1D1880A100103E75 /* LaunchScreen.storyboard */,
@@ -198,11 +207,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				048B27631D19D7CA00103E75 /* Filters.swift in Sources */,
+				048B276B1D1B37DC00103E75 /* ImageCollectionViewCell.swift in Sources */,
 				048B27441D1880A100103E75 /* ImageViewController.swift in Sources */,
 				048B27611D19D56400103E75 /* ModelAdditions.swift in Sources */,
+				048B27691D1B354700103E75 /* GalleryCustomFlowLayout.swift in Sources */,
 				048B275F1D19D3CE00103E75 /* Additions.swift in Sources */,
 				048B27571D18832400103E75 /* Setup.swift in Sources */,
 				048B27421D1880A100103E75 /* AppDelegate.swift in Sources */,
+				048B27671D1B304000103E75 /* GalleryViewController.swift in Sources */,
 				048B27651D19DD3A00103E75 /* API.swift in Sources */,
 				048B275D1D19D38C00103E75 /* Post.swift in Sources */,
 			);
