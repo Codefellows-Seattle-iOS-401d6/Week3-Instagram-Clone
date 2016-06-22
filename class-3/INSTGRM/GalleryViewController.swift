@@ -31,15 +31,8 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
-        self.title = "Gallery"
-        self.navigationController?.setToolbarHidden(true, animated: false)
+        self.setupAppearance()
         self.update()
-        
-//        API.shared.GET { (posts) in
-//            if let posts = posts {
-//                self.datasource = posts
-//            }
-//            }
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,7 +41,8 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
     
     func setupAppearance()
     {
-          self.navigationController?.setToolbarHidden(true, animated: false)
+        self.title = "Gallery"
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
     func setupCollectionView()
