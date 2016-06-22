@@ -16,6 +16,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
     var post: Post? {
         didSet {
             self.imageView.image = self.post?.image
+            self.imageView.layer.cornerRadius = 4.0
+            self.imageView.layer.borderWidth = 1.0
         }
     }
     
