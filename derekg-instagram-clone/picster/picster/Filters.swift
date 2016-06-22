@@ -74,9 +74,19 @@ class Filters {
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
     }
     
-    class func torus(image: UIImage, completion: FiltersCompletion) {
-        self.filter("CITorusLensDistortion", image: image, completion: completion)
+    class func process(image: UIImage, completion: FiltersCompletion) {
+        self.filter("CIPhotoEffectProcess", image: image, completion: completion)
     }
+    
+    class func instant(image: UIImage, completion: FiltersCompletion) {
+        self.filter("CIPhotoEffectInstant", image: image, completion: completion)
+    }
+    
+    
+    
+//    class func torus(image: UIImage, completion: FiltersCompletion) {
+//        self.filter("CITorusLensDistortion", image: image, completion: completion)
+//    }
     
     class func revert(image: UIImage, completion: FiltersCompletion) {
         completion(image: self.original)

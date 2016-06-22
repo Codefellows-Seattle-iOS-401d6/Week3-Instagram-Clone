@@ -79,9 +79,6 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         }
     }
     @IBAction func saveButtonSelected(sender: AnyObject) {
-        print("save button selected")
-            
-
         
         let actionSheet = UIAlertController(title: "Save Image", message: "Please choose where to save your photo", preferredStyle: .ActionSheet)
         
@@ -132,9 +129,17 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
             })
         }
         
-        let torusAction = UIAlertAction(title: "Torus", style: .Default) { (action) in
+
+        let processAction = UIAlertAction(title: "Process", style: .Default ) { (action) in
             guard let image = self.imageView.image else { return }
-            Filters.torus(image, completion: { (image) in
+            Filters.process(image, completion: { (image) in
+                self.imageView.image = image
+            })
+        }
+        
+        let instantAction = UIAlertAction(title: "Instant", style: .Default) { (action) in
+            guard let image = self.imageView.image else { return }
+            Filters.instant(image, completion: { (image) in
                 self.imageView.image = image
             })
         }
@@ -153,7 +158,8 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         actionSheet.addAction(bwAction)
         actionSheet.addAction(chromeAction)
         actionSheet.addAction(vintageAction)
-
+        actionSheet.addAction(processAction)
+        actionSheet.addAction(instantAction)
         actionSheet.addAction(revertAction)
         actionSheet.addAction(cancelAction)
         
