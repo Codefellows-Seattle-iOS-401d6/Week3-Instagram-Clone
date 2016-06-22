@@ -72,36 +72,35 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter", preferredStyle: .ActionSheet)
         
         let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-            Filters.vintage(image) { (theImage) in
+            Filters.shared.vintage(image) { (theImage) in
                 self.imageView.image = theImage
                 }
         }
         let bwAction = UIAlertAction(title: "Black and White", style: .Default) { (action) in
-            Filters.bw(image) { (theImage) in
+            Filters.shared.bw(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-            Filters.chrome(image) { (theImage) in
+            Filters.shared.chrome(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         let colorInvertAction = UIAlertAction(title: "Color Invert", style: .Default) { (action) in
-            Filters.colorInvert(image) { (theImage) in
+            Filters.shared.colorInvert(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         let motionBlurAction = UIAlertAction(title: "Motion Blur (requires patience)", style: .Default) { (action) in
-            Filters.motionBlur(image) { (theImage) in
+            Filters.shared.motionBlur(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         let revertAction = UIAlertAction(title: "Revert", style: .Cancel) { (action) in
-            Filters.motionBlur(image) { (theImage) in
                 self.imageView.image = Filters.original
-            }
         }
-        
+    
+    
         actionSheet.addAction(bwAction)
         actionSheet.addAction(chromeAction)
         actionSheet.addAction(colorInvertAction)
