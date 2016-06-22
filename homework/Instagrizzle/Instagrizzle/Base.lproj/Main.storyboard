@@ -31,6 +31,11 @@
                         </constraints>
                     </view>
                     <toolbarItems>
+                        <barButtonItem title="Edit" id="pCp-W0-1OE">
+                            <connections>
+                                <action selector="editButtonSelected:" destination="BYZ-38-t0r" id="mAU-q8-iVs"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="QcP-CY-MyP"/>
                         <barButtonItem systemItem="add" id="6zT-Ew-cr2">
                             <connections>
@@ -38,6 +43,11 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="GGi-lb-KNL"/>
+                        <barButtonItem title="Save" id="xUa-oQ-vjU">
+                            <connections>
+                                <action selector="saveButtonSelected:" destination="BYZ-38-t0r" id="vOg-g8-xC6"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="BnL-YF-XfJ"/>
                     <connections>
