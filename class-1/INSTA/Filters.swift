@@ -63,6 +63,19 @@ class Filters
         
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
     }
-
     
+    class func instant(image: UIImage, completion: FiltersCompletion)
+    {
+        
+        self.filter("CIPhotoEffectInstant", image: image, completion: completion)
+    }
+    
+    class func noir(image: UIImage, completion: FiltersCompletion)
+    {
+        
+        self.filter("CIPhotoEffectNoir", image: image, completion: completion)
+    }
+
+
+        
 }

@@ -48,6 +48,11 @@
                                 <action selector="saveButtonSelected:" destination="BYZ-38-t0r" id="xyS-Mg-Drl"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem title="Discard" id="CPX-ll-gJ8">
+                            <connections>
+                                <action selector="discardButtonSelected:" destination="BYZ-38-t0r" id="ehR-zx-hJB"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="Z2P-Q3-TKC"/>
                     <connections>

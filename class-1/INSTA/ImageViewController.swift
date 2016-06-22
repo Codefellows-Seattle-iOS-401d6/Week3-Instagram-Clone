@@ -25,6 +25,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         self.setup()
         self.setupAppearance()
         publicDatabase = container.publicCloudDatabase
+      
     }
 
     override func didReceiveMemoryWarning()
@@ -87,17 +88,58 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     
     }
     
+    func presentFilterActionSheet()
+    {
+        guard let image = self.imageView.image else { return } //cant edit if no image
+    
+        let filterActionSheet = UIAlertController(title: "filters", message: "Please select filter", preferredStyle: .ActionSheet)
+        
+        let bwAction = UIAlertAction(title: "Black and White", style: .Default) { (action) in
+            Filters.bw(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
+            Filters.vintage(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
+            Filters.chrome(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let instantAction = UIAlertAction(title: "Instant", style: .Default) { (action) in
+            Filters.instant(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+        
+        let noirAction = UIAlertAction(title: "Noir", style: .Default) { (action) in
+            Filters.noir(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
+
+    
+    
+        filterActionSheet.addAction(bwAction)
+        filterActionSheet.addAction(vintageAction)
+        filterActionSheet.addAction(chromeAction)
+        filterActionSheet.addAction(instantAction)
+        filterActionSheet.addAction(noirAction)
+        
+        self.presentViewController(filterActionSheet, animated: true, completion: nil)
+    
+    }
+    
     
     @IBAction func editButtonSelected(sender: AnyObject)
     {
-        
-        guard let image = self.imageView.image else { return } //cant edit if no image
-        
-//        let actionSheet = UIAlertController(title: "filters", message: "Please select filter")
-        
-        Filters.bw(image) { (theImage) in
-            self.imageView.image = theImage
-        }
+        self.presentFilterActionSheet()
     }
     
     
@@ -110,12 +152,28 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         API.shared.write(Post(image: image)) { (success) in
             if success {
                 
-                print("Success")
+                let alertController = UIAlertController(title: "iOScreator", message: "Added to Photo Library", preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            
             }
     }
     
     
     }
+    
+    @IBAction func discardButtonSelected(sender: AnyObject)
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.Camera)
+        {
+            self.presentActionSheet()
+        } else {
+            self.presentImagePicker(.PhotoLibrary)
+        }
+
+    }
+    
     
     
     
