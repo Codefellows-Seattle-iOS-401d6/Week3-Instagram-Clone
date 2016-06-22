@@ -66,11 +66,6 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
-    @IBAction func originalImageButtonSelected(sender: AnyObject) {
-        guard let image = Filters.original else { return }
-        self.imageView.image = image
-    }
-    
     @IBAction func editButtonSelected(sender: AnyObject) {
         guard let image = self.imageView.image else { return }
         
@@ -101,12 +96,18 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 self.imageView.image = theImage
             }
         }
+        let revertAction = UIAlertAction(title: "Revert", style: .Cancel) { (action) in
+            Filters.motionBlur(image) { (theImage) in
+                self.imageView.image = Filters.original
+            }
+        }
         
         actionSheet.addAction(bwAction)
         actionSheet.addAction(chromeAction)
         actionSheet.addAction(colorInvertAction)
         actionSheet.addAction(motionBlurAction)
         actionSheet.addAction(vintageAction)
+        actionSheet.addAction(revertAction)
         
         self.presentViewController(actionSheet, animated: true, completion: nil)
     }

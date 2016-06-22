@@ -49,13 +49,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="Ffg-M1-Igc">
-                        <barButtonItem key="leftBarButtonItem" title="Original Image" id="1FZ-rh-VrU">
-                            <connections>
-                                <action selector="originalImageButtonSelected:" destination="BYZ-38-t0r" id="3Gb-Gj-NV3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Ffg-M1-Igc"/>
                     <connections>
                         <outlet property="imageView" destination="nJe-kw-Xmb" id="UTI-7B-IRq"/>
                     </connections>
