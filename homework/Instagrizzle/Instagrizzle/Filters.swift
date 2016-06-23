@@ -11,22 +11,30 @@ import UIKit
 typealias FiltersCompletion = (theImage: UIImage?) -> ()
 
 class Filters {
-    static var original: UIImage?
+    var original: UIImage?
     
-    private class func filter(name: String, image: UIImage, completion: FiltersCompletion) {
-        if original == nil {
-            original = image
+    static let shared = Filters()
+    
+    private let context: CIContext
+    
+    private init() {
+        let options = [kCIContextWorkingColorSpace : NSNull()]
+        let eAGLContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+        self.context = CIContext(EAGLContext: eAGLContext, options: options)
+    }
+    
+    private func filter(name: String, image: UIImage, completion: FiltersCompletion) {
+        if Filters.shared.original == nil {
+            Filters.shared.original = image
         }
         NSOperationQueue().addOperationWithBlock {
             guard let filter = CIFilter(name: name) else { fatalError("Check your spelling") }
             filter.setValue(CIImage(image: image), forKey: kCIInputImageKey)
-            let options = [kCIContextWorkingColorSpace : NSNull()]
-            let eAGLContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-            let gPUContext = CIContext(EAGLContext: eAGLContext, options: options)
+
             
             guard let outputImage = filter.outputImage else { fatalError("Error creating output image") }
             
-            let cgImage = gPUContext.createCGImage(outputImage, fromRect: outputImage.extent)
+            let cgImage = Filters.shared.context.createCGImage(outputImage, fromRect: outputImage.extent)
             
             NSOperationQueue.mainQueue().addOperationWithBlock({ 
                 completion(theImage: UIImage(CGImage: cgImage))
@@ -34,23 +42,23 @@ class Filters {
         }
     }
     
-    class func vintage(image: UIImage, completion: FiltersCompletion) {
+    func vintage(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectTransfer", image: image, completion: completion)
     }
     
-    class func bw(image: UIImage, completion: FiltersCompletion) {
+    func bw(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectMono", image: image, completion: completion)
     }
     
-    class func chrome(image: UIImage, completion: FiltersCompletion) {
+    func chrome(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
     }
     
-    class func sepia(image: UIImage, completion: FiltersCompletion) {
+    func sepia(image: UIImage, completion: FiltersCompletion) {
         self.filter("CISepiaTone", image: image, completion: completion)
     }
     
-    class func invert(image: UIImage, completion: FiltersCompletion) {
+    func invert(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIColorInvert", image: image, completion: completion)
     }
 

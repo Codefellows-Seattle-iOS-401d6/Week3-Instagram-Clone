@@ -11,6 +11,7 @@ import UIKit
 class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     lazy var imagePicker = UIImagePickerController()
     
@@ -18,6 +19,11 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         super.viewDidLoad()
         self.setup()
         self.setupAppearance()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(false, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,7 +65,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     }
     
     @IBAction func addButtonSelected(sender: AnyObject) {
-        Filters.original = nil
+        Filters.shared.original = nil
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             self.presentActionSheet()
         } else {
@@ -73,37 +79,37 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter.", preferredStyle: .ActionSheet)
         
         let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-            Filters.vintage(image, completion: { (theImage) in
+            Filters.shared.vintage(image, completion: { (theImage) in
                 self.imageView.image = theImage
             })
         }
         
         let bwAction = UIAlertAction(title: "Black and White", style: .Default) { (action) in
-            Filters.bw(image, completion: { (theImage) in
+            Filters.shared.bw(image, completion: { (theImage) in
                 self.imageView.image = theImage
             })
         }
         
         let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-            Filters.chrome(image, completion: { (theImage) in
+            Filters.shared.chrome(image, completion: { (theImage) in
                 self.imageView.image = theImage
             })
         }
         
         let sepiaAction = UIAlertAction(title: "Sepia", style: .Default) { (action) in
-            Filters.sepia(image, completion: { (theImage) in
+            Filters.shared.sepia(image, completion: { (theImage) in
                 self.imageView.image = theImage
             })
         }
         
         let invertAction = UIAlertAction(title: "Invert Color", style: .Default) { (action) in
-            Filters.invert(image, completion: { (theImage) in
+            Filters.shared.invert(image, completion: { (theImage) in
                 self.imageView.image = theImage
             })
         }
         
-        let resetAction = UIAlertAction(title: "Reset", style: .Default) { (action) in
-            self.imageView.image = Filters.original
+        let resetAction = UIAlertAction(title: "Reset", style: .Destructive) { (action) in
+            self.imageView.image = Filters.shared.original
         }
         
         actionSheet.addAction(resetAction)
@@ -118,6 +124,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     
     @IBAction func saveButtonSelected(sender: AnyObject) {
         guard let image = self.imageView.image else { return }
+        self.activityIndicatorView.startAnimating()
         API.shared.write(Post(image: image)) { (success) in
             
             if success {
@@ -125,6 +132,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
             } else {
                 print("No")
             }
+
         }
     }
     
@@ -138,6 +146,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
         }
+        self.activityIndicatorView.stopAnimating()
     }
     
     //MARK: UIImagePickerControllerDelegate

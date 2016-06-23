@@ -23,6 +23,7 @@ extension Post {
             let asset = CKAsset(fileURL: imageURL)
             let record = CKRecord(recordType: "Post")
             record.setObject(asset, forKey: "image")
+            print("This is the record id: \(record.recordID)")
             return record
         } else {
             throw PostError.CreateCKRecord

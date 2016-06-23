@@ -7,14 +7,16 @@
 //
 
 import CloudKit
+import UIKit
 
-typealias APICompletion = (success: Bool) -> ()
 
 class API {
     static let shared = API()
     
     let container : CKContainer
     let database : CKDatabase
+    
+    typealias APICompletion = (success: Bool) -> ()
     
     private init() {
         self.container = CKContainer.defaultContainer()
@@ -27,7 +29,6 @@ class API {
                 self.database.saveRecord(record, completionHandler: { (record, error) in
                     print("save record completed")
                     if error == nil && record != nil {
-                        print(record)
                         completion(success: true)
                     } else {
                         print(error)
@@ -36,5 +37,26 @@ class API {
                 })
             }
         } catch let error { print(error) }
+    }
+    
+    func GET(completion: (posts: [Post]?) -> ()) {
+        let query = CKQuery(recordType: "Post", predicate: NSPredicate(value: true))
+        self.database.performQuery(query, inZoneWithID: nil) { (records, error) in
+            if let records = records {
+                if error != nil {
+                    print(error)
+                }
+                var posts = [Post]()
+                for record in records {
+                    guard let asset = record["image"] as? CKAsset else { return }
+                    guard let path = asset.fileURL.path else { return }
+                    guard let image = UIImage(contentsOfFile: path) else { return }
+                    posts.append(Post(image: image))
+                }
+                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                    completion(posts: posts)
+                })
+            } else { completion(posts: nil) }
+        }
     }
 }
