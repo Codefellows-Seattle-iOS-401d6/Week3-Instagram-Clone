@@ -9,12 +9,14 @@
 import UIKit
 import CloudKit
 
-class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,  Setup {
+class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersPreviewViewControllerDelegate, Setup {
     
     
     @IBOutlet weak var imageView: UIImageView!
     
     lazy var imagePicker = UIImagePickerController()
+    
+    var post = Post()
     
     
     override func viewDidLoad() {
@@ -68,65 +70,47 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @IBAction func editButtonSelected(sender: AnyObject) {
         guard let image = self.imageView.image else { return }
-        
-        let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter", preferredStyle: .ActionSheet)
-        
-        let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-            Filters.shared.vintage(image) { (theImage) in
-                self.imageView.image = theImage
-                }
-        }
-        let bwAction = UIAlertAction(title: "Black and White", style: .Default) { (action) in
-            Filters.shared.bw(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-            Filters.shared.chrome(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        let colorInvertAction = UIAlertAction(title: "Color Invert", style: .Default) { (action) in
-            Filters.shared.colorInvert(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        let motionBlurAction = UIAlertAction(title: "Motion Blur (requires patience)", style: .Default) { (action) in
-            Filters.shared.motionBlur(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        let revertAction = UIAlertAction(title: "Revert", style: .Cancel) { (action) in
-                self.imageView.image = Filters.original
-        }
-    
-    
-        actionSheet.addAction(bwAction)
-        actionSheet.addAction(chromeAction)
-        actionSheet.addAction(colorInvertAction)
-        actionSheet.addAction(motionBlurAction)
-        actionSheet.addAction(vintageAction)
-        actionSheet.addAction(revertAction)
-        
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        Filters.shared.original = image
+        self.post = Post(image: image)
+        self.performSegueWithIdentifier(FiltersPreviewViewController.identifier(), sender: nil)
     }
     
     @IBAction func saveButtonSelected(sender: AnyObject) {
         
         guard let image = self.imageView.image else { return }
+        self.post = Post(image: image)
         
-        API.shared.write(Post(image: image)) { (success) in
+        API.shared.write(self.post) { (success) in
             if success {
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             }
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == FiltersPreviewViewController.identifier() {
+            guard let filtersPreviewViewController = segue.destinationViewController as?
+                FiltersPreviewViewController else { return }
+            filtersPreviewViewController.delegate = self
+            filtersPreviewViewController.post = self.post
+        }
+    }
+    
+    func didFinishPickingImage(success: Bool, image: UIImage?) {
+        if success {
+            guard let image = image else { return }
+            self.imageView.image = image
+        } else {
+            print("Unsuccessful retrieval of image")
+        }
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: UIImagePickerControllerDelegate
         
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.imageView.image = image
-        Filters.original = image
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

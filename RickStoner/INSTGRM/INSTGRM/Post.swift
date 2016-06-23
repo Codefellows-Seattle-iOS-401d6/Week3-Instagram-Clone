@@ -15,4 +15,8 @@ class Post {
     init(image: UIImage) {
         self.image = image
     }
+    
+    convenience init() {
+        self.init(image: UIImage())
+    }
 }

@@ -14,7 +14,7 @@ class Filters {
     
     static let shared = Filters()
     
-    static var original: UIImage?
+    var original = UIImage()
     
     private let context: CIContext
     
@@ -23,6 +23,8 @@ class Filters {
         let eAGLContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
         self.context = CIContext(EAGLContext: eAGLContext, options: options)
     }
+    
+    
     
     private func filter(name: String, image: UIImage, completion: FiltersCompletions) {
         
@@ -38,6 +40,10 @@ class Filters {
                 completion(theImage: UIImage(CGImage: cgImage))
             })
         }
+    }
+    
+    func original(image: UIImage, completion: FiltersCompletions) {
+        completion(theImage: self.original)
     }
     
     func vintage(image: UIImage, completion: FiltersCompletions) {
