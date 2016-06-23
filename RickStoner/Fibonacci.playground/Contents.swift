@@ -6,10 +6,13 @@ func fibonacci() -> [Double] {
     var fibonacciNumbers = [Double]()
     var result = 0.0
     for number in 0...99 {
-        if number > 0 {
-            result += fibonacciNumbers[number - 1]
-        } else { result = 1.0 }
-        fibonacciNumbers.append(result)
+        if number > 1 {
+            result += fibonacciNumbers[number - 2]
+            fibonacciNumbers.append(result)
+        } else {
+            fibonacciNumbers.append(result)
+            result += 1
+        }
     }
     return fibonacciNumbers
 }
