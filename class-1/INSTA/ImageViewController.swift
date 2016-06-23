@@ -14,6 +14,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     @IBOutlet weak var imageView: UIImageView!
 
     lazy var imagePicker = UIImagePickerController()
+    
     let container = CKContainer.defaultContainer()
     var publicDatabase: CKDatabase?
     var currentRecord: CKRecord?
@@ -27,6 +28,13 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         publicDatabase = container.publicCloudDatabase
       
     }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+
 
     override func didReceiveMemoryWarning()
     {
@@ -95,31 +103,31 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         let filterActionSheet = UIAlertController(title: "filters", message: "Please select filter", preferredStyle: .ActionSheet)
         
         let bwAction = UIAlertAction(title: "Black and White", style: .Default) { (action) in
-            Filters.bw(image) { (theImage) in
+            Filters.shared.bw(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-            Filters.vintage(image) { (theImage) in
+            Filters.shared.vintage(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-            Filters.chrome(image) { (theImage) in
+            Filters.shared.chrome(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let instantAction = UIAlertAction(title: "Instant", style: .Default) { (action) in
-            Filters.instant(image) { (theImage) in
+            Filters.shared.instant(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
         
         let noirAction = UIAlertAction(title: "Noir", style: .Default) { (action) in
-            Filters.noir(image) { (theImage) in
+            Filters.shared.noir(image) { (theImage) in
                 self.imageView.image = theImage
             }
         }
