@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersPreviewViewControllerDelegate, Identity {
 
     @IBOutlet weak var imageView: UIImageView!
     
     lazy var imagePicker = UIImagePickerController()
+    
+    var post = Post()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,60 +89,61 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         
         guard let image = self.imageView.image else { return }
         
-        
-        
-        // action sheet presenting filters options
-        
-        let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter.", preferredStyle: .ActionSheet)
-        
-        let bw = UIAlertAction(title: "Black & White", style: .Default) { (action) in
-            Filters.shared.bw(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        
-        let vintage = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-            Filters.shared.vintage(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        
-        let chrome = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-            Filters.shared.chrome(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        
-        let poster = UIAlertAction(title: "Posterize", style: .Default) { (actions) in
-            Filters.shared.poster(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        
-        let colorNoir = UIAlertAction(title: "Color Noir", style: .Default) { (actions) in
-            Filters.shared.colorNoir(image) { (theImage) in
-                self.imageView.image = theImage
-            }
-        }
-        
-        let resetAction = UIAlertAction(title: "Reset", style: .Default) { (action) in
-            self.imageView.image = Filters.original
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        
-        
-        actionSheet.addAction(bw)
-        actionSheet.addAction(vintage)
-        actionSheet.addAction(chrome)
-        actionSheet.addAction(poster)
-        actionSheet.addAction(colorNoir)
-        actionSheet.addAction(resetAction)
-        actionSheet.addAction(cancelAction)
-    
-        
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        self.post = Post(image: image)
+        self.performSegueWithIdentifier(FiltersPreviewViewController.id(), sender: nil)
+//        
+//        // action sheet presenting filters options
+//        
+//        let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter.", preferredStyle: .ActionSheet)
+//        
+//        let bw = UIAlertAction(title: "Black & White", style: .Default) { (action) in
+//            Filters.shared.bw(image) { (theImage) in
+//                self.imageView.image = theImage
+//            }
+//        }
+//        
+//        let vintage = UIAlertAction(title: "Vintage", style: .Default) { (action) in
+//            Filters.shared.vintage(image) { (theImage) in
+//                self.imageView.image = theImage
+//            }
+//        }
+//        
+//        let chrome = UIAlertAction(title: "Chrome", style: .Default) { (action) in
+//            Filters.shared.chrome(image) { (theImage) in
+//                self.imageView.image = theImage
+//            }
+//        }
+//        
+//        let poster = UIAlertAction(title: "Posterize", style: .Default) { (actions) in
+//            Filters.shared.poster(image) { (theImage) in
+//                self.imageView.image = theImage
+//            }
+//        }
+//        
+//        let colorNoir = UIAlertAction(title: "Color Noir", style: .Default) { (actions) in
+//            Filters.shared.colorNoir(image) { (theImage) in
+//                self.imageView.image = theImage
+//            }
+//        }
+//        
+//        let resetAction = UIAlertAction(title: "Reset", style: .Default) { (action) in
+//            self.imageView.image = Filters.original
+//        }
+//        
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+//        
+//        
+//        
+//        actionSheet.addAction(bw)
+//        actionSheet.addAction(vintage)
+//        actionSheet.addAction(chrome)
+//        actionSheet.addAction(poster)
+//        actionSheet.addAction(colorNoir)
+//        actionSheet.addAction(resetAction)
+//        actionSheet.addAction(cancelAction)
+//    
+//        
+//        self.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
@@ -162,7 +165,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         // this image is saying i want my image with the filter on it
         guard let image = self.imageView.image else { return }
         
-        API.shared.write(Post(image: image)) { (success) in
+        API.shared.POST(self.post) { (success) -> () in //POST was a write
             
             if success {
                 print("🍎")
@@ -174,21 +177,45 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == FiltersPreviewViewController.id() {
+            guard let filtersPreviewViewController = segue.destinationViewController as? FiltersPreviewViewController else { return }
+            
+            filtersPreviewViewController.delegate = self
+            filtersPreviewViewController.post = self.post
+        }
+    }
+    
+    func didFinishPickingImage(success: Bool, image: UIImage?) {
+        if success {
+            guard let image = image else {return }
+            self.imageView.image = image
+        } else {
+            print("Unsuccessful at retrieving image")
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     // now handle image selection - implementing two delegates on imagePicker
     
     // MARK: UIImagePickerControllerDelegate
+}
     
+extension ImageViewController {
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.imageView.image = image // passed in as param of delegate function
-        Filters.original = image // image reset to original non filtered pix
+        Filters.shared.original = image // image reset to original non filtered pix
         self.dismissViewControllerAnimated(true, completion: nil)
-        
     }
-    
 }
+
+    
+    
+    
+
 

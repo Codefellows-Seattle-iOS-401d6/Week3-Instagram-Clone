@@ -22,6 +22,9 @@
 		EE9255451D1885FF00A8E5CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9255431D1885FF00A8E5CE /* Main.storyboard */; };
 		EE9255471D1885FF00A8E5CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE9255461D1885FF00A8E5CE /* Assets.xcassets */; };
 		EE92554A1D1885FF00A8E5CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9255481D1885FF00A8E5CE /* LaunchScreen.storyboard */; };
+		EEF9E6C51D1C817100D67E85 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF9E6C41D1C817100D67E85 /* Identity.swift */; };
+		EEF9E6C71D1C82DE00D67E85 /* FiltersPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF9E6C61D1C82DE00D67E85 /* FiltersPreviewViewController.swift */; };
+		EEF9E6C91D1C8AA900D67E85 /* FiltersPreviewViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF9E6C81D1C8AA900D67E85 /* FiltersPreviewViewControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		EE9255461D1885FF00A8E5CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE9255491D1885FF00A8E5CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE92554B1D1885FF00A8E5CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEF9E6C41D1C817100D67E85 /* Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		EEF9E6C61D1C82DE00D67E85 /* FiltersPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersPreviewViewController.swift; sourceTree = "<group>"; };
+		EEF9E6C81D1C8AA900D67E85 /* FiltersPreviewViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersPreviewViewControllerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +66,9 @@
 		EE1D9F0F1D19DBD8006C39C9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EE1D9F101D19DBF1006C39C9 /* post.swift */,
 				EE1D9F161D19DEA0006C39C9 /* Filters.swift */,
+				EEF9E6C41D1C817100D67E85 /* Identity.swift */,
+				EE1D9F101D19DBF1006C39C9 /* post.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -123,6 +130,8 @@
 		EE9255541D18868B00A8E5CE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EEF9E6C61D1C82DE00D67E85 /* FiltersPreviewViewController.swift */,
+				EEF9E6C81D1C8AA900D67E85 /* FiltersPreviewViewControllerDelegate.swift */,
 				EE1D9F1C1D1B3A4B006C39C9 /* GalleryViewController.swift */,
 				EE9255411D1885FF00A8E5CE /* ImageViewController.swift */,
 			);
@@ -206,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEF9E6C91D1C8AA900D67E85 /* FiltersPreviewViewControllerDelegate.swift in Sources */,
 				EE1D9F171D19DEA0006C39C9 /* Filters.swift in Sources */,
 				EE1D9F211D1B4FDD006C39C9 /* ImageCollectionViewCell.swift in Sources */,
 				EE9255421D1885FF00A8E5CE /* ImageViewController.swift in Sources */,
@@ -213,9 +223,11 @@
 				EE1D9F1F1D1B3E18006C39C9 /* GalleryCustomFlowLayout.swift in Sources */,
 				EE1D9F131D19DC4F006C39C9 /* Additions.swift in Sources */,
 				EE32A88A1D188F2D003FDCFD /* Setup.swift in Sources */,
+				EEF9E6C51D1C817100D67E85 /* Identity.swift in Sources */,
 				EE9255401D1885FF00A8E5CE /* AppDelegate.swift in Sources */,
 				EE1D9F191D19E520006C39C9 /* API.swift in Sources */,
 				EE1D9F1D1D1B3A4B006C39C9 /* GalleryViewController.swift in Sources */,
+				EEF9E6C71D1C82DE00D67E85 /* FiltersPreviewViewController.swift in Sources */,
 				EE1D9F111D19DBF1006C39C9 /* post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

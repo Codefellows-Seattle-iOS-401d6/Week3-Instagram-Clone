@@ -10,9 +10,15 @@ import UIKit
 
 
 class Post {
-    let image : UIImage
+    var image : UIImage
     
     init(image: UIImage) {
         self.image = image
     } // initializaer that takes in an image
+    
+    // this creates an empty instance of the image
+    convenience init() {
+        self.init(image: UIImage())        
+    }
+
 }

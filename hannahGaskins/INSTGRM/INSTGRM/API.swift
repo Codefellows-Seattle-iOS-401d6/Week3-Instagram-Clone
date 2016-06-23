@@ -26,7 +26,7 @@ class API {
     
     }
     
-    func write(post: Post, completion: APICompletion) {
+    func POST(post: Post, completion: APICompletion) {
         
         do {
             if let record = try Post.recordWith(post) {

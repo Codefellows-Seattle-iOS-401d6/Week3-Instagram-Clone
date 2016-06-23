@@ -11,12 +11,13 @@ import UIKit
 typealias FiltersCompletion = (theImage: UIImage?) -> ()
 
 class Filters {
+    
+    var original = UIImage()
 
     static let shared = Filters()
     
     private let context: CIContext
     
-    static var original = UIImage()
     
     private init() {
         // copy GPU code and put in initializer.
@@ -48,6 +49,10 @@ class Filters {
     
     
     // =============================== filters ================================
+    
+    func original(image: UIImage, completion: FiltersCompletion)  {
+        completion(theImage: self.original)
+    }
     
     func vintage(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectTransfer", image: image, completion: completion)
