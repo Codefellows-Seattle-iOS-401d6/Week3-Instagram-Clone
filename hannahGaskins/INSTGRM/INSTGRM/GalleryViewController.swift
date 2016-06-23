@@ -10,6 +10,7 @@ import UIKit
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource {
 
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var datasource = [Post]() {
@@ -39,7 +40,6 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
     
     func update() {
         
-        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         spinner.hidesWhenStopped = true
         spinner.startAnimating()
         
@@ -48,6 +48,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
         API.shared.GET { (posts) in
             if let posts = posts {
                 self.datasource = posts
+                self.spinner.stopAnimating()
             }
         }
         
