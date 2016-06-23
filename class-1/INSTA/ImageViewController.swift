@@ -9,11 +9,13 @@
 import UIKit
 import CloudKit
 
-class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersPreviewViewControllerDelegate, Identity
 {
     @IBOutlet weak var imageView: UIImageView!
 
     lazy var imagePicker = UIImagePickerController()
+    
+    var post = Post()
     
     let container = CKContainer.defaultContainer()
     var publicDatabase: CKDatabase?
@@ -26,6 +28,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         self.setup()
         self.setupAppearance()
         publicDatabase = container.publicCloudDatabase
+        
       
     }
     
@@ -131,6 +134,12 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
                 self.imageView.image = theImage
             }
         }
+        
+        let originalAction = UIAlertAction(title: "Original", style: .Default) { (action) in
+            Filters.shared.original(image) { (theImage) in
+                self.imageView.image = theImage
+            }
+        }
 
     
     
@@ -139,6 +148,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         filterActionSheet.addAction(chromeAction)
         filterActionSheet.addAction(instantAction)
         filterActionSheet.addAction(noirAction)
+        filterActionSheet.addAction(originalAction)
         
         self.presentViewController(filterActionSheet, animated: true, completion: nil)
     
@@ -147,7 +157,10 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     
     @IBAction func editButtonSelected(sender: AnyObject)
     {
-        self.presentFilterActionSheet()
+        guard let image = self.imageView.image else { return }
+        
+        self.post = Post(image: image)
+        self.performSegueWithIdentifier(FilterPreviewViewController.id(), sender: nil)
     }
     
     
@@ -157,19 +170,39 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         
         guard let image = self.imageView.image else { return }
         
-        API.shared.write(Post(image: image)) { (success) in
+        self.post = Post(image: image)
+        API.shared.write(self.post) { (success) -> () in
             if success {
-                
-                let alertController = UIAlertController(title: "iOScreator", message: "Added to Photo Library", preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
-            
+                UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
             }
+
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+        if segue.identifier == FilterPreviewViewController.id(){
+            guard let filterPreviewViewController = segue.destinationViewController as?
+                FilterPreviewViewController else { return }
+            
+            filterPreviewViewController.delegate = self
+            filterPreviewViewController.post = self.post
+                
+                
+            }
+        }
+    func didFinishPickingImage(success: Bool, image: UIImage?) {
+        
+        if success{
+            guard let image = image else { return }
+            self.imageView.image = image
+        }
+        else {
+            print("Unsuccessful at retreiving image.")
+        }
     }
     
     
-    }
+    
     
     @IBAction func discardButtonSelected(sender: AnyObject)
     {

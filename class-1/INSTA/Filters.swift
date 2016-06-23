@@ -24,11 +24,10 @@ class Filters
     }
     
         
-    private func filter(name: String, image: UIImage, completion: FiltersCompletion)
+    func filter(name: String, image: UIImage, completion: FiltersCompletion)
     {
         
-        
-        NSOperationQueue().addOperationWithBlock { () -> Void in
+        NSOperationQueue().addOperationWithBlock { 
             guard let filter =  CIFilter(name: name) else { fatalError("Check your spelling") }
             filter.setValue(CIImage(image: image), forKey: kCIInputImageKey)
             
@@ -41,7 +40,12 @@ class Filters
         }
     }
     
-    static var original = UIImage() //allows us to revert back to original imaage
+    var original = UIImage() //allows us to revert back to original imaage
+    
+    func original(imagge: UIImage, completion: FiltersCompletion)
+    {
+        completion(theImage: self.original)
+    }
 
         
         

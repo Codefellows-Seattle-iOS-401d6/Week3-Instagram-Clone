@@ -14,12 +14,10 @@ extension UIImage
     {
         
         UIGraphicsBeginImageContext(size)
-        
         image.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         
         
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()        
         UIGraphicsEndImageContext() //kills the context above
         
         return resizedImage

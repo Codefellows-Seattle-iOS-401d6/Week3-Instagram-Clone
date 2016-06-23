@@ -9,9 +9,10 @@
 import UIKit
 
 
-class ImageCollectionViewCell: UICollectionViewCell
+class ImageCollectionViewCell: UICollectionViewCell, Identity
 {
     @IBOutlet weak var imageView: UIImageView!
+    
     
     var post: Post?
         {
