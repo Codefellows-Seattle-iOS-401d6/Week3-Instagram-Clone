@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ISTGRM/API.swift"
+            timestampString = "488331661.442909"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "GET(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ISTGRM.API.(GET ((posts : Swift.Optional&lt;Swift.Array&lt;ISTGRM.Post&gt;&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "ISTGRM"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davidswaintek/Week3-Instagram-Clone/Swaintek/ISTGRM/ISTGRM/API.swift"
+                  timestampString = "488331899.008764"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ISTGRM.API.(GET ((posts : Swift.Optional&lt;Swift.Array&lt;ISTGRM.Post&gt;&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "ISTGRM"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davidswaintek/Week3-Instagram-Clone/Swaintek/ISTGRM/ISTGRM/API.swift"
+                  timestampString = "488331899.009023"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "84">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ISTGRM/ImageViewController.swift"
+            timestampString = "488332188.051767"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "viewWillAppear()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
