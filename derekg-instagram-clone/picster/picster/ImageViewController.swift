@@ -23,7 +23,6 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         super.viewDidLoad()
         self.setup()
         self.setupAppearance()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +31,10 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     }
 
     
-
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
     
     func setup()
     {
@@ -111,20 +113,21 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         
         let bwAction = UIAlertAction(title: "Black & White", style: .Default) { (action) in
             guard let image = self.imageView.image else { return }
-            Filters.bw(image, completion: { (image) in
+            Filters.shared.bw(image, completion: { (image) in
                 self.imageView.image = image
-            })        }
+            })
+        }
         
         let chromeAction = UIAlertAction(title: "Chrome", style: .Default ) { (action) in
             guard let image = self.imageView.image else { return }
-            Filters.chrome(image, completion: { (image) in
+            Filters.shared.chrome(image, completion: { (image) in
                 self.imageView.image = image
             })
         }
         
         let vintageAction = UIAlertAction(title: "Sepia", style: .Default) { (action) in
             guard let image = self.imageView.image else { return }
-            Filters.vintage(image, completion: { (image) in
+            Filters.shared.vintage(image, completion: { (image) in
                 self.imageView.image = image
             })
         }
@@ -132,24 +135,23 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
 
         let processAction = UIAlertAction(title: "Process", style: .Default ) { (action) in
             guard let image = self.imageView.image else { return }
-            Filters.process(image, completion: { (image) in
+            Filters.shared.process(image, completion: { (image) in
                 self.imageView.image = image
             })
         }
         
         let instantAction = UIAlertAction(title: "Instant", style: .Default) { (action) in
             guard let image = self.imageView.image else { return }
-            Filters.instant(image, completion: { (image) in
+            Filters.shared.instant(image, completion: { (image) in
                 self.imageView.image = image
             })
         }
         
         
         let revertAction = UIAlertAction(title: "Revert", style: .Default) { (action) in
-            guard let image = self.imageView.image else { return }
-            Filters.revert(image, completion: { (image) in
-                self.imageView.image = image
-            })
+            guard let image = Filters.original else { return }
+            self.imageView.image = image
+
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -178,7 +180,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
     {
         self.imageView.image = image
-        Filters.original(image)
+        Filters.original = image
 
         self.dismissViewControllerAnimated(true, completion: nil)
     }
