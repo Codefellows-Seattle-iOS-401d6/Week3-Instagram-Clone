@@ -45,7 +45,28 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func setupCollectionView() {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(GalleryViewController.pinchedCollectionView(_:)))
         self.collectionView.collectionViewLayout = GalleryCustomFlowLayout()
+        self.collectionView.addGestureRecognizer(pinchGesture)
+        
+    }
+    
+    func pinchedCollectionView(sender: UIPinchGestureRecognizer) {
+        let layout = self.collectionView.collectionViewLayout as! GalleryCustomFlowLayout
+        var columns = layout.columns
+        
+        if sender.state == .Ended {
+            if sender.scale > 1.0 {
+                columns += 1
+            } else if sender.scale < 1.0 {
+                if columns > 1 {
+                    columns -= 1
+                }
+            }
+        }
+        
+        self.collectionView.setCollectionViewLayout(GalleryCustomFlowLayout(columns: columns), animated: true)
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
     
     func update() {
