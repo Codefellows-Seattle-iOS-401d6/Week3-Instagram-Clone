@@ -26,6 +26,13 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setToolbarHidden(false, animated: true)
+        
+    }
+    
     func setupAppearance() {
         //customize image to have rounded corners
         self.imageView.layer.cornerRadius = 3.0
@@ -91,59 +98,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
         
         self.post = Post(image: image)
         self.performSegueWithIdentifier(FiltersPreviewViewController.id(), sender: nil)
-//        
-//        // action sheet presenting filters options
-//        
-//        let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter.", preferredStyle: .ActionSheet)
-//        
-//        let bw = UIAlertAction(title: "Black & White", style: .Default) { (action) in
-//            Filters.shared.bw(image) { (theImage) in
-//                self.imageView.image = theImage
-//            }
-//        }
-//        
-//        let vintage = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-//            Filters.shared.vintage(image) { (theImage) in
-//                self.imageView.image = theImage
-//            }
-//        }
-//        
-//        let chrome = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-//            Filters.shared.chrome(image) { (theImage) in
-//                self.imageView.image = theImage
-//            }
-//        }
-//        
-//        let poster = UIAlertAction(title: "Posterize", style: .Default) { (actions) in
-//            Filters.shared.poster(image) { (theImage) in
-//                self.imageView.image = theImage
-//            }
-//        }
-//        
-//        let colorNoir = UIAlertAction(title: "Color Noir", style: .Default) { (actions) in
-//            Filters.shared.colorNoir(image) { (theImage) in
-//                self.imageView.image = theImage
-//            }
-//        }
-//        
-//        let resetAction = UIAlertAction(title: "Reset", style: .Default) { (action) in
-//            self.imageView.image = Filters.original
-//        }
-//        
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-//        
-//        
-//        
-//        actionSheet.addAction(bw)
-//        actionSheet.addAction(vintage)
-//        actionSheet.addAction(chrome)
-//        actionSheet.addAction(poster)
-//        actionSheet.addAction(colorNoir)
-//        actionSheet.addAction(resetAction)
-//        actionSheet.addAction(cancelAction)
-//    
-//        
-//        self.presentViewController(actionSheet, animated: true, completion: nil)
+
     }
     
     func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {

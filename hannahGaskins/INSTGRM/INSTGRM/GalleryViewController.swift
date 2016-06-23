@@ -99,16 +99,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
     
     // MARK: UICollectionViewDataSource
     
-//    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.datasource.count
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//        
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCollectionViewCell.id(), forIndexPath: indexPath) as! ImageCollectionViewCell
-//        cell.post = self.datasource[indexPath.row]
-//        return cell
-//    }
+
     
     // replacement code as of 6.23
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
