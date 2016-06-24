@@ -12,7 +12,7 @@ typealias FiltersCompletion = (image: UIImage?)->()
 
 class Filters {
     
-    static var original = UIImage?()
+    var original = UIImage?()
     static let shared = Filters()
     
     private var context = CIContext()
@@ -60,6 +60,11 @@ class Filters {
     
     func instant(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectInstant", image: image, completion: completion)
+    }
+    
+    func original(image: UIImage, completion: FiltersCompletion)
+    {
+        completion(image: self.original)
     }
     
 }

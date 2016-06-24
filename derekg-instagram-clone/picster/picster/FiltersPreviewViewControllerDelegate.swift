@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  FiltersPreviewViewControllerDelegate.swift
 //  picster
 //
 //  Created by Derek Graham on 6/23/16.
@@ -7,3 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
+protocol FiltersPreviewViewControllerDelegate : class {
+    func didFinishPickingImage(success: Bool, image: UIImage?) -> ()
+}

@@ -12,6 +12,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     // fixme? notes not showing didset
     var post: Post? {
         didSet{

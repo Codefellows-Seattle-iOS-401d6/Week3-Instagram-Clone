@@ -27,6 +27,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
         self.collectionView.dataSource = self
         self.collectionView.collectionViewLayout = GalleryCustomFlowLayout()
         self.update()
+        setupCollectionView()
     }
     
     func setupGalleryViewControllerAppearance() {
@@ -48,6 +49,31 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource {
             }
         }
     }
+    
+    func setupCollectionView() {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(GalleryViewController.pinchedCollectionView(_:)))
+        self.collectionView.addGestureRecognizer(pinchGesture)
+        self.collectionView.collectionViewLayout = GalleryCustomFlowLayout(columns: 3)
+    }
+    
+    func pinchedCollectionView(sender: UIPinchGestureRecognizer)
+    {
+        let layout = self.collectionView.collectionViewLayout as! GalleryCustomFlowLayout
+        var columns = layout.columns
+        
+        if sender.state == .Ended {
+            if sender.scale > 1.0 {
+                columns += 1
+            } else if sender.scale < 1.0 && columns > 1 {
+                columns -= 1
+            }
+        }
+        self.collectionView.setCollectionViewLayout(GalleryCustomFlowLayout(columns: columns), animated: true)
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        
+    }
+    
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.setupGalleryViewControllerAppearance()

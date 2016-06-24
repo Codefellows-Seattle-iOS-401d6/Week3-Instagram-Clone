@@ -9,11 +9,11 @@
 import UIKit
 import CloudKit
 
-
-
-class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersPreviewViewControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
+    
+    var post = Post()
     
     
     lazy var imagePicker = UIImagePickerController()
@@ -34,6 +34,25 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == FiltersPreviewViewController.id() {
+            guard let filtersPreviewViewController = segue.destinationViewController as? FiltersPreviewViewController else { return }
+            filtersPreviewViewController.delegate = self
+            filtersPreviewViewController.post = self.post
+        }
+    }
+    
+    func didFinishPickingImage(success: Bool, image: UIImage?) {
+        if success {
+            guard let image = image else { return }
+            self.imageView.image = image
+            
+        } else {
+            print("unsucessful at returning image")
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func setup()
@@ -80,14 +99,15 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
             
         }
     }
+    
     @IBAction func saveButtonSelected(sender: AnyObject) {
         
         let actionSheet = UIAlertController(title: "Save Image", message: "Please choose where to save your photo", preferredStyle: .ActionSheet)
         
         let cloudAction = UIAlertAction(title: "Cloud", style: .Default) { (action) in
             guard let image = self.imageView.image else { return }
-            
-            API.shared.write(Post(image: image)) { (success) in
+            self.post = Post(image: image)
+            API.shared.write(self.post) { (success) in
                 if success {
                     print("Yay")
                 }
@@ -109,63 +129,11 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     }
     
     @IBAction func editButtonSelected(sender: AnyObject) {
-        let actionSheet = UIAlertController(title: "Filter", message: "Please choose a filter for your photos", preferredStyle: .ActionSheet)
-        
-        let bwAction = UIAlertAction(title: "Black & White", style: .Default) { (action) in
-            guard let image = self.imageView.image else { return }
-            Filters.shared.bw(image, completion: { (image) in
-                self.imageView.image = image
-            })
-        }
-        
-        let chromeAction = UIAlertAction(title: "Chrome", style: .Default ) { (action) in
-            guard let image = self.imageView.image else { return }
-            Filters.shared.chrome(image, completion: { (image) in
-                self.imageView.image = image
-            })
-        }
-        
-        let vintageAction = UIAlertAction(title: "Sepia", style: .Default) { (action) in
-            guard let image = self.imageView.image else { return }
-            Filters.shared.vintage(image, completion: { (image) in
-                self.imageView.image = image
-            })
-        }
-        
+        guard let image = self.imageView.image else { return }
+        Filters.shared.original = image
 
-        let processAction = UIAlertAction(title: "Process", style: .Default ) { (action) in
-            guard let image = self.imageView.image else { return }
-            Filters.shared.process(image, completion: { (image) in
-                self.imageView.image = image
-            })
-        }
-        
-        let instantAction = UIAlertAction(title: "Instant", style: .Default) { (action) in
-            guard let image = self.imageView.image else { return }
-            Filters.shared.instant(image, completion: { (image) in
-                self.imageView.image = image
-            })
-        }
-        
-        
-        let revertAction = UIAlertAction(title: "Revert", style: .Default) { (action) in
-            guard let image = Filters.original else { return }
-            self.imageView.image = image
-
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        
-        actionSheet.addAction(bwAction)
-        actionSheet.addAction(chromeAction)
-        actionSheet.addAction(vintageAction)
-        actionSheet.addAction(processAction)
-        actionSheet.addAction(instantAction)
-        actionSheet.addAction(revertAction)
-        actionSheet.addAction(cancelAction)
-        
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        self.post = Post(image: image)
+        self.performSegueWithIdentifier(FiltersPreviewViewController.id(), sender: nil)
     }
     
     
@@ -180,7 +148,6 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
     {
         self.imageView.image = image
-        Filters.original = image
 
         self.dismissViewControllerAnimated(true, completion: nil)
     }
