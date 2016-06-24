@@ -14,7 +14,7 @@ class FiltersPreviewViewController: UIViewController {
     
     weak var delegate: FiltersPreviewViewControllerDelegate?
     
-    let filters = [Filters.shared.original, Filters.shared.bw, Filters.shared.chrome, Filters.shared.colorInvert]
+    let filters = [Filters.shared.original, Filters.shared.vintage ,Filters.shared.bw, Filters.shared.chrome, Filters.shared.colorInvert, Filters.shared.motionBlur]
     var post = Post()
     
     
