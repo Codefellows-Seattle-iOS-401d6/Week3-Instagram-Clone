@@ -115,7 +115,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     }
     
     @IBAction func saveButtonSelected(sender: AnyObject) {
-        print("🍋")
+        print("🍋saved!")
         
         // this image is saying i want my image with the filter on it
         guard let image = self.imageView.image else { return }
@@ -143,7 +143,7 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     
     func didFinishPickingImage(success: Bool, image: UIImage?) {
         if success {
-            guard let image = image else {return }
+            guard let image = image else { return }
             self.imageView.image = image
         } else {
             print("Unsuccessful at retrieving image")
