@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ImageViewController: UIViewController, Setup, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersPreviewViewControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     lazy var imagePicker = UIImagePickerController()
+    
+    var post = Post()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,24 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == FilterPreviewViewController.id() {
+            guard let filtersPreviewViewController = segue.destinationViewController as? FilterPreviewViewController else { return }
+            filtersPreviewViewController.delegate = self
+            filtersPreviewViewController.post = self.post
+        }
+    }
+    
+    func didFinishPickingImage(success: Bool, image: UIImage?) {
+        if success {
+            guard let image = image else { return }
+            self.imageView.image = image
+        } else {
+            print("Unsuccessful at retrieving image")
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     func setup() {
         self.navigationItem.title = "Instagrizzle"
     }
@@ -65,7 +84,6 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     }
     
     @IBAction func addButtonSelected(sender: AnyObject) {
-        Filters.shared.original = nil
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             self.presentActionSheet()
         } else {
@@ -75,57 +93,18 @@ class ImageViewController: UIViewController, Setup, UIImagePickerControllerDeleg
     
     @IBAction func editButtonSelected(sender: AnyObject) {
         guard let image = self.imageView.image else { return }
-        
-        let actionSheet = UIAlertController(title: "Filters", message: "Please select a filter.", preferredStyle: .ActionSheet)
-        
-        let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-            Filters.shared.vintage(image, completion: { (theImage) in
-                self.imageView.image = theImage
-            })
-        }
-        
-        let bwAction = UIAlertAction(title: "Black and White", style: .Default) { (action) in
-            Filters.shared.bw(image, completion: { (theImage) in
-                self.imageView.image = theImage
-            })
-        }
-        
-        let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-            Filters.shared.chrome(image, completion: { (theImage) in
-                self.imageView.image = theImage
-            })
-        }
-        
-        let sepiaAction = UIAlertAction(title: "Sepia", style: .Default) { (action) in
-            Filters.shared.sepia(image, completion: { (theImage) in
-                self.imageView.image = theImage
-            })
-        }
-        
-        let invertAction = UIAlertAction(title: "Invert Color", style: .Default) { (action) in
-            Filters.shared.invert(image, completion: { (theImage) in
-                self.imageView.image = theImage
-            })
-        }
-        
-        let resetAction = UIAlertAction(title: "Reset", style: .Destructive) { (action) in
-            self.imageView.image = Filters.shared.original
-        }
-        
-        actionSheet.addAction(resetAction)
-        actionSheet.addAction(vintageAction)
-        actionSheet.addAction(bwAction)
-        actionSheet.addAction(chromeAction)
-        actionSheet.addAction(sepiaAction)
-        actionSheet.addAction(invertAction)
-        
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        Filters.shared.original = image
+        self.post = Post(image: image)
+        self.performSegueWithIdentifier(FilterPreviewViewController.id(), sender: nil)
     }
     
     @IBAction func saveButtonSelected(sender: AnyObject) {
         guard let image = self.imageView.image else { return }
+        self.post = Post(image: image)
         self.activityIndicatorView.startAnimating()
-        API.shared.write(Post(image: image)) { (success) in
+        
+        
+        API.shared.write(post) { (success) in
             
             if success {
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)

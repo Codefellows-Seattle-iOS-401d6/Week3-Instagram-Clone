@@ -67,11 +67,76 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="Q3M-4f-bPz" id="3Fm-os-Qps"/>
                         <outlet property="imageView" destination="FJr-6L-6B4" id="4zc-Gv-ZJc"/>
+                        <segue destination="I9j-Kr-SAe" kind="presentation" identifier="FilterPreviewViewController" id="GFV-gu-3E3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="957" y="-527"/>
+        </scene>
+        <!--Filter Preview View Controller-->
+        <scene sceneID="SFj-cc-5Qk">
+            <objects>
+                <viewController storyboardIdentifier="FilterPreviewViewController" id="I9j-Kr-SAe" customClass="FilterPreviewViewController" customModule="Instagrizzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fN4-Mh-USY"/>
+                        <viewControllerLayoutGuide type="bottom" id="bgT-ON-QLn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uT6-ud-ZRM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iIA-FE-LPg">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OP6-LE-Oab">
+                                    <size key="itemSize" width="129" height="129"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionViewCell" id="xxb-VG-kBc" customClass="ImageCollectionViewCell" customModule="Instagrizzle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="129" height="129"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="129" height="129"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fju-gI-byh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="129" height="129"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="fju-gI-byh" firstAttribute="top" secondItem="xxb-VG-kBc" secondAttribute="top" id="9Rl-Oe-cCe"/>
+                                            <constraint firstAttribute="bottom" secondItem="fju-gI-byh" secondAttribute="bottom" id="9oo-gL-nZB"/>
+                                            <constraint firstItem="fju-gI-byh" firstAttribute="leading" secondItem="xxb-VG-kBc" secondAttribute="leading" id="Ckx-a3-fyi"/>
+                                            <constraint firstAttribute="trailing" secondItem="fju-gI-byh" secondAttribute="trailing" id="vpr-2S-GlE"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="fju-gI-byh" id="ftU-NR-ezE"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bgT-ON-QLn" firstAttribute="top" secondItem="iIA-FE-LPg" secondAttribute="bottom" id="CUw-gY-qcI"/>
+                            <constraint firstItem="iIA-FE-LPg" firstAttribute="leading" secondItem="uT6-ud-ZRM" secondAttribute="leading" id="HUY-9a-GiD"/>
+                            <constraint firstItem="iIA-FE-LPg" firstAttribute="top" secondItem="uT6-ud-ZRM" secondAttribute="top" id="aM3-kE-Jrg"/>
+                            <constraint firstAttribute="trailing" secondItem="iIA-FE-LPg" secondAttribute="trailing" id="xRu-Nt-xTt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="iIA-FE-LPg" id="lmr-03-eP7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wei-Is-8NL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="957" y="191"/>
         </scene>
         <!--Gallery View Controller-->
         <scene sceneID="i9o-eN-RBv">

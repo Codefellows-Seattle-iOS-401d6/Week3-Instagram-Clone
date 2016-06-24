@@ -8,12 +8,13 @@
 
 import UIKit
 
-typealias FiltersCompletion = (theImage: UIImage?) -> ()
+
 
 class Filters {
-    var original: UIImage?
     
     static let shared = Filters()
+    
+    typealias FiltersCompletion = (theImage: UIImage?) -> ()
     
     private let context: CIContext
     
@@ -23,15 +24,11 @@ class Filters {
         self.context = CIContext(EAGLContext: eAGLContext, options: options)
     }
     
-    private func filter(name: String, image: UIImage, completion: FiltersCompletion) {
-        if Filters.shared.original == nil {
-            Filters.shared.original = image
-        }
+    func filter(name: String, image: UIImage, completion: FiltersCompletion) {
         NSOperationQueue().addOperationWithBlock {
             guard let filter = CIFilter(name: name) else { fatalError("Check your spelling") }
             filter.setValue(CIImage(image: image), forKey: kCIInputImageKey)
 
-            
             guard let outputImage = filter.outputImage else { fatalError("Error creating output image") }
             
             let cgImage = Filters.shared.context.createCGImage(outputImage, fromRect: outputImage.extent)
@@ -40,6 +37,11 @@ class Filters {
                 completion(theImage: UIImage(CGImage: cgImage))
             })
         }
+    }
+    var original = UIImage()
+    
+    func original(image: UIImage, completion: FiltersCompletion) {
+        completion(theImage: self.original)
     }
     
     func vintage(image: UIImage, completion: FiltersCompletion) {
