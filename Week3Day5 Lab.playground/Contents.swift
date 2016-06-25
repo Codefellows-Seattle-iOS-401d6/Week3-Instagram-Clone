@@ -25,6 +25,10 @@ class ShortURLCache {
     }
     
     func writeURL(longURL: String) -> () {
+        
+        if let _ = self.database[self.shorten(longURL)] {
+            Swift.print("input collision")
+        }
         if let _ = self.read(self.shorten(longURL)) {
             Swift.print("input collision")
         } else {
@@ -57,7 +61,6 @@ class ShortURLCache {
     }
     
     func print() {
-        
         for record in self.records {
             Swift.print("http://bit.ly/\(record)", database[record])
         }
@@ -88,7 +91,12 @@ class ShortURLCache {
         let magnitude = String(hashValue).characters.count
         if magnitude / String(self.size).characters.count > 2 {
             var shortHash = hashValue % (self.size * spread)
-                while self.database[self.toBase64(shortHash)] == longURL && spread > 1 {
+                while (self.records.indexOf(self.toBase64(shortHash)) > 0 ) && spread > 1 {
+//                    Swift.print("Matching Record \(hashValue) \(shortHash) -> \(self.toBase64(shortHash)): \(longURL)")
+                    if self.database[self.toBase64(shortHash)] == longURL {
+//                        Swift.print("same url, ok to ignore")
+                        break
+                    }
                     spread -= 1
                     shortHash = hashValue % (self.size * spread)
                 }
@@ -105,9 +113,11 @@ class ShortURLCache {
 let 🍱 = ShortURLCache(size: 100)
 🍱.writeURL("https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html#//apple_ref/doc/uid/TP40014097-CH7-ID285")
 🍱.writeURL("https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html#//apple_ref/doc/uid/TP40014097-CH7-ID286")
+🍱.writeURL("https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html#//apple_ref/doc/uid/TP40014097-CH7-ID287")
+🍱.writeURL("https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html#//apple_ref/doc/uid/TP40014097-CH7-ID288")
 🍱.writeURL("https://www.raywenderlich.com/66584/ios7-ibeacons-tutorial")
 
 🍱.writeURL("https://hannahjgaskins.squarespace.com/config/design/template")
 
 🍱.print()
-Swift.print(🍱.read("4AR4cQRlJvK"))
+
